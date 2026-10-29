@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Trending Content Engine · ta file du jour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{--fond:#F5F6F8;--carte:#FFFFFF;--bord:#E1E4E9;--texte:#15181D;--doux:#4A505A;--pale:#5A616C;--bleu:#2350D8;--bleu-f:#173A9E;--bleu-c:#EAF0FF;
+--vert:#1E8E5A;--vert-t:#12633D;--vert-c:#E6F4EC;--orange:#D98200;--orange-t:#8A4B00;--orange-c:#FDF0DC;--rouge:#D2463B;--rouge-t:#A12A22;--rouge-c:#FBE7E5}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--fond);color:var(--texte);font:15px/1.5 Inter,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,select,textarea{font:inherit}a{color:var(--bleu)}a:hover{color:var(--bleu-f)}
+.app{display:flex;flex-wrap:wrap;min-height:100vh}
+nav{flex:1 1 220px;max-width:100%;background:var(--carte);border-right:1px solid var(--bord);padding:24px 18px;display:flex;flex-direction:column;gap:24px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;line-height:1.2}
+.menu{display:flex;flex-direction:column;gap:4px}
+.menu button,.menu .off{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:0 12px;border:0;border-radius:8px;background:none;color:#3D434D;text-align:left;cursor:pointer}
+.menu button[aria-current="page"]{background:var(--bleu-c);color:var(--bleu-f);font-weight:600}
+.menu .off{cursor:default;color:var(--pale)}
+.tag{margin-left:auto;font-size:11px;font-weight:600;padding:2px 6px;border-radius:4px;background:#EEF0F3;color:#4A505A}
+.pied{margin-top:auto;font-size:12px;color:var(--pale);border-top:1px solid var(--bord);padding-top:14px}
+main{flex:999 1 560px;min-width:0;padding:32px clamp(16px,4vw,40px) 48px;display:flex;flex-direction:column;gap:22px}
+.sur{margin:0;font-size:13px;color:var(--pale)}h1{margin:4px 0 0;font-size:28px;line-height:1.2;letter-spacing:-.01em}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.stat{background:var(--carte);border:1px solid var(--bord);border-radius:12px;padding:14px 18px}
+.stat .l{display:flex;align-items:center;gap:8px;font-size:13px;color:#3D434D}.stat .n{font-size:28px;font-weight:700}
+.pt{width:10px;height:10px;border-radius:50%;display:inline-block}
+.filtres{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filtres button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #CDD2DA;background:#FFF;color:var(--texte);cursor:pointer}
+.filtres button[aria-pressed="true"]{background:var(--bleu);border-color:var(--bleu);color:#FFF;font-weight:600}
+.liste{display:flex;flex-direction:column;gap:12px}
+.carte{background:var(--carte);border:1px solid var(--bord);border-radius:12px;padding:18px 22px;display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center}
+.corps{flex:999 1 360px;min-width:0;display:flex;flex-direction:column;gap:8px}
+.ligne{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:#3D434D}
+.feu{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-weight:600}
+.axe{font-size:12px;font-weight:600;padding:2px 8px;border-radius:4px;background:#EEF0F3}
+.carte h2{margin:0;font-size:18px;line-height:1.35}.res{margin:0;color:var(--doux);font-size:14px}
+.pourtoi{margin:0;display:flex;gap:6px;font-size:13.5px;color:var(--bleu-f)}
+dl.notes{flex:1 1 260px;margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+dl.notes dt{font-size:12px;color:var(--pale)}dl.notes dd{margin:2px 0 0;font-weight:600}dl.notes .gros{font-size:22px;font-weight:700;line-height:1.1}
+.actions{flex:1 1 220px;display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:8px;border:1px solid #CDD2DA;background:#FFF;color:var(--texte);font-weight:600;font-size:14px;text-decoration:none;cursor:pointer}
+.btn.prim{background:var(--bleu);border-color:var(--bleu);color:#FFF}.btn.prim:hover{background:var(--bleu-f);color:#FFF}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.vide{padding:28px;text-align:center;color:var(--pale);background:#FFF;border:1px dashed #CDD2DA;border-radius:12px}
+.studio{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start}
+.bloc{background:var(--carte);border:1px solid var(--bord);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.bloc h2{margin:0;font-size:16px}.gauche{flex:999 1 460px;min-width:0}.droite{flex:1 1 280px;min-width:0}
+.reglages{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.reglages label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--pale)}
+select{min-height:44px;padding:0 10px;border:1px solid #CDD2DA;border-radius:8px;background:#FFF;color:var(--texte)}
+textarea{width:100%;min-height:300px;padding:14px 16px;border:1px solid #CDD2DA;border-radius:8px;line-height:1.6;background:#FBFCFD;color:var(--texte);resize:vertical}
+.compte{font-size:13px;color:var(--pale)}.compte.trop{color:var(--rouge-t);font-weight:600}
+.etat{font-size:14px;color:var(--pale)}.erreur{color:var(--rouge-t)}
+.check{display:flex;gap:10px;align-items:flex-start;min-height:44px;font-size:14px;color:#3D434D;cursor:pointer}
+.check input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--bleu)}
+.apercu{border:1px solid var(--bord);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px;background:#FFF}
+.auteur{display:flex;gap:10px;align-items:center}.avatar{width:40px;height:40px;border-radius:50%;background:var(--bleu);color:#FFF;display:flex;align-items:center;justify-content:center;font-weight:700}
+.auteur b{display:block;font-size:14px}.auteur span{font-size:12px;color:var(--pale)}
+.apercu p{margin:0;white-space:pre-wrap;font-size:14px;line-height:1.5}
+.spin{width:18px;height:18px;border:2px solid rgba(255,255,255,.5);border-top-color:#FFF;border-radius:50%;animation:t 1s linear infinite}
+@keyframes t{to{transform:rotate(360deg)}}
+@media (max-width:700px){nav{border-right:0;border-bottom:1px solid var(--bord);padding:14px 16px;gap:10px}.pied,.menu .off{display:none}.menu{flex-direction:row;flex-wrap:wrap}.menu button{width:auto}dl.notes{grid-template-columns:repeat(2,minmax(0,1fr))}.actions{justify-content:flex-start}}
+[hidden]{display:none!important}
+.simple{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px max(16px,env(safe-area-inset-left,0px))}
+.simple .boite{max-width:520px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.simple h1{font-size:24px}.simple p{margin:0;color:var(--doux)}
+.grosspin{width:34px;height:34px;border:3px solid var(--bord);border-top-color:var(--bleu);border-radius:50%;animation:t 1s linear infinite;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="simple" id="simple" role="status" aria-live="polite"><div class="boite"><div class="grosspin" aria-hidden="true"></div><h1>Chargement…</h1></div></div>
+<div class="app" id="app" hidden>
+<nav aria-label="Navigation principale">
+  <div class="logo"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="7" fill="#2350D8"></rect><path d="M7 18l5-5 4 3 5-7" fill="none" stroke="#FFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Trending<br>Content Engine</span></div>
+  <div class="menu">
+    <button type="button" data-vue="file" aria-current="page"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Ta file du jour</button>
+    <button type="button" data-vue="studio"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h10l4 4v12H5z"/><path d="M9 12h6M9 16h6"/></svg>Studio LinkedIn</button>
+    <div class="off"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>Tes préférences<span class="tag">Bientôt</span></div>
+    <div class="off"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v6M8 7v.01M12 16v-4a2 2 0 0 1 4 0v4"/></svg>Connexion LinkedIn<span class="tag">Bientôt</span></div>
+  </div>
+  <div class="pied">MVP · projet étudiant Oreegami</div>
+</nav>
+<main id="vue" tabindex="-1"></main>
+</div>
+<script>
+(function () {
+  // ─── Réglages ─────────────────────────────────────────────────────────────
+  // Le site appelle n8n par /app/ (redirection Vercel, même domaine).
+  // Si cette redirection ne répond pas, il appelle n8n directement à cette adresse :
+  var N8N = 'https://painainews.app.n8n.cloud/webhook/';
+  var ATTENTE_MS = 4000, ESSAIS_MAX = 15;
+  // ──────────────────────────────────────────────────────────────────────────
+
+  var BASES = ['/app/', N8N], base = null;
+  // Envoie une requête POST en JSON à un workflow n8n. Essaie /app/ puis l'adresse directe.
+  function appel(chemin, corps) {
+    var liste = base ? [base] : BASES;
+    function tenter(i) {
+      var b = liste[i];
+      return fetch(b + chemin, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corps) })
+        .then(function (r) {
+          var json = (r.headers.get('content-type') || '').indexOf('application/json') !== -1;
+          if (r.ok && json) return r.json().then(function (j) { base = b; return j; });
+          var err = new Error('HTTP ' + r.status); err.n8n = json; throw err;
+        })
+        .catch(function (e) { if (!e.n8n && i + 1 < liste.length) return tenter(i + 1); throw e; });
+    }
+    return tenter(0);
+  }
+
+  var simple = document.getElementById('simple');
+  function ecran(titre, texte, attente, bouton) {
+    var b = simple.firstChild;
+    while (b.firstChild) b.removeChild(b.firstChild);
+    if (attente) { var s = document.createElement('div'); s.className = 'grosspin'; s.setAttribute('aria-hidden', 'true'); b.appendChild(s); }
+    var h = document.createElement('h1'); h.textContent = titre; b.appendChild(h);
+    if (texte) { var p = document.createElement('p'); p.textContent = texte; b.appendChild(p); }
+    if (bouton) { var k = document.createElement('button'); k.type = 'button'; k.className = 'btn prim'; k.textContent = bouton[0]; k.addEventListener('click', bouton[1]); b.appendChild(k); }
+    document.title = titre + ' · Trending Content Engine';
+  }
+
+  var ID = new URLSearchParams(window.location.search).get('id') || '';
+  var FEUX_OK = ['vert', 'orange', 'rouge'];
+  var nombre = function (v) { var n = Number(v); return v === null || v === '' || !isFinite(n) ? null : n; };
+  // Nettoie ce que renvoie n8n : du texte, des nombres, des liens http(s) seulement.
+  function propre(a) {
+    var url = String(a.url || '');
+    return {
+      ref: String(a.ref || ''), rang: nombre(a.rang), titre: String(a.titre || ''),
+      url: /^https?:\/\//i.test(url) ? url : '', source: String(a.source || ''),
+      feu: FEUX_OK.indexOf(a.feu) !== -1 ? a.feu : '', raisonFeu: String(a.raisonFeu || ''), axe: String(a.axe || ''),
+      resume: String(a.resume || ''), pourToi: String(a.pourToi || ''),
+      durabilite: nombre(a.durabilite), propension: nombre(a.propension), lienOffre: nombre(a.lienOffre)
+    };
+  }
+
+  function charger(essai) {
+    appel('file', { id: ID }).then(function (j) {
+      var articles = (j && Array.isArray(j.articles) ? j.articles : []).map(propre).filter(function (a) { return /^rec[A-Za-z0-9]{14}$/.test(a.ref); });
+      if (j && j.etat === 'invalide') ecran('Lien incomplet', 'Ce lien ne correspond à aucune inscription. Utilise le lien reçu après le formulaire.');
+      else if (articles.length) demarrer({ id: ID, prenom: String(j.prenom || ''), articles: articles });
+      else if (essai < ESSAIS_MAX) { ecran('On prépare tes premiers articles…', 'Ça prend quelques secondes. La page se met à jour toute seule.', true); setTimeout(function () { charger(essai + 1); }, ATTENTE_MS); }
+      else ecran("Pas encore d'articles pour tes thèmes", "On n'a rien trouvé de récent qui te corresponde. Reviens demain : la collecte tourne en continu.");
+    }).catch(function () {
+      ecran('Le service ne répond pas', 'Impossible de joindre le serveur pour le moment.', false, ['Réessayer', function () { ecran('Chargement…', '', true); charger(essai); }]);
+    });
+  }
+
+  function demarrer(D) {
+    simple.hidden = true;
+    document.getElementById('app').hidden = false;
+    document.title = 'Trending Content Engine · ta file du jour';
+    var FEUX = { vert: { t: 'Publie vite', c: 'var(--vert-t)', bg: 'var(--vert-c)', p: 'var(--vert)' },
+                 orange: { t: 'Trouve un angle', c: 'var(--orange-t)', bg: 'var(--orange-c)', p: 'var(--orange)' },
+                 rouge: { t: 'Déjà saturé', c: 'var(--rouge-t)', bg: 'var(--rouge-c)', p: 'var(--rouge)' } };
+    var etat = { vue: 'file', filtre: 'tous', ignores: [], choisi: D.articles[0] ? D.articles[0].ref : '', ton: 'pedagogue', langue: 'fr', enCours: false, erreur: '', copie: false, checks: [false, false, false] };
+    var cle = function (ref) { return 'tce-brouillon-' + D.id + '-' + ref; };
+    function lire(ref) { try { return localStorage.getItem(cle(ref)) || ''; } catch (e) { return memo[ref] || ''; } }
+    function ecrire(ref, t) { memo[ref] = t; try { localStorage.setItem(cle(ref), t); } catch (e) {} }
+    var memo = {};
+
+    // Petit utilitaire : crée un élément sans jamais injecter de HTML venu des données.
+    function el(tag, attrs, enfants) {
+      var n = document.createElement(tag);
+      Object.keys(attrs || {}).forEach(function (k) {
+        if (k === 'texte') n.textContent = attrs[k];
+        else if (k === 'style') n.setAttribute('style', attrs[k]);
+        else if (k.slice(0, 2) === 'on') n.addEventListener(k.slice(2), attrs[k]);
+        else if (attrs[k] !== false && attrs[k] != null) n.setAttribute(k, attrs[k]);
+      });
+      (enfants || []).forEach(function (c) { if (c) n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+      return n;
+    }
+    function pastille(feu) {
+      var f = FEUX[feu]; if (!f) return null;
+      return el('span', { 'class': 'feu', style: 'color:' + f.c + ';background:' + f.bg }, [el('span', { 'class': 'pt', style: 'background:' + f.p, 'aria-hidden': 'true' }), f.t]);
+    }
+    function monet(a) { return [a.durabilite, a.propension, a.lienOffre].every(function (v) { return v != null; }) ? a.durabilite + a.propension + a.lienOffre : null; }
+    function aller(vue, ref) { etat.vue = vue; if (ref) etat.choisi = ref; etat.erreur = ''; etat.copie = false; rendre(); document.getElementById('vue').focus(); window.scrollTo(0, 0); }
+
+    // Copie le post. Si le navigateur refuse l'accès au presse-papiers, on sélectionne le texte pour Cmd+C.
+    function copier(texte, zone) {
+      function ok() { etat.copie = true; etat.erreur = ''; rendre(); }
+      function secours() {
+        var reussi = false;
+        try { zone.focus(); zone.select(); reussi = document.execCommand('copy'); } catch (e) {}
+        if (reussi) ok(); else { etat.erreur = 'Copie automatique impossible : le texte est sélectionné, fais Cmd+C (ou Ctrl+C).'; etat.copie = false; rendre(); document.getElementById('post').select(); }
+      }
+      try { navigator.clipboard.writeText(texte).then(ok, secours); } catch (e) { secours(); }
+    }
+
+    function vueFile() {
+      var visibles = D.articles.filter(function (a) { return etat.ignores.indexOf(a.ref) === -1; });
+      var compte = function (k) { return visibles.filter(function (a) { return a.feu === k; }).length; };
+      var nb = D.articles.filter(function (a) { return lire(a.ref); }).length;
+      var aujourdhui = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+      var stat = function (label, n, feu) { return el('div', { 'class': 'stat' }, [el('div', { 'class': 'l' }, [feu ? el('span', { 'class': 'pt', style: 'background:' + FEUX[feu].p, 'aria-hidden': 'true' }) : null, label]), el('div', { 'class': 'n', texte: String(n) })]); };
+      var filtres = [['tous', 'Tous (' + visibles.length + ')'], ['vert', 'Vert (' + compte('vert') + ')'], ['orange', 'Orange (' + compte('orange') + ')'], ['rouge', 'Rouge (' + compte('rouge') + ')']];
+      var montres = visibles.filter(function (a) { return etat.filtre === 'tous' || a.feu === etat.filtre; });
+      return [
+        el('header', {}, [el('p', { 'class': 'sur', texte: aujourdhui.charAt(0).toUpperCase() + aujourdhui.slice(1) + ' · choisis par l’IA selon ton profil' }), el('h1', { texte: (D.prenom ? 'Bonjour ' + D.prenom + ', ' : '') + 'voici ta file du jour' })]),
+        el('section', { 'class': 'stats', 'aria-label': 'Résumé' }, [stat('Feu vert · publie vite', compte('vert'), 'vert'), stat('Feu orange · trouve un angle', compte('orange'), 'orange'), stat('Feu rouge · saturé', compte('rouge'), 'rouge'), stat('Brouillons LinkedIn', nb)]),
+        el('div', { 'class': 'filtres', role: 'group', 'aria-label': 'Filtrer par feu' }, [el('span', { 'class': 'sur', texte: 'Filtrer :' })].concat(filtres.map(function (f) {
+          return el('button', { type: 'button', 'aria-pressed': String(etat.filtre === f[0]), texte: f[1], onclick: function () { etat.filtre = f[0]; rendre(); } });
+        }))),
+        el('section', { 'class': 'liste', 'aria-label': 'Sujets' }, montres.length ? montres.map(function (a) {
+          var m = monet(a);
+          return el('article', { 'class': 'carte' }, [
+            el('div', { 'class': 'corps' }, [
+              el('div', { 'class': 'ligne' }, [pastille(a.feu), a.axe ? el('span', { 'class': 'axe', texte: a.axe }) : null, a.source ? el('span', { texte: a.source }) : null]),
+              el('h2', { texte: a.titre }),
+              a.resume ? el('p', { 'class': 'res', texte: a.resume }) : null,
+              a.pourToi ? el('p', { 'class': 'pourtoi', texte: a.pourToi }) : null
+            ]),
+            el('dl', { 'class': 'notes' }, [
+              el('div', {}, [el('dt', { texte: 'Durabilité' }), el('dd', { texte: a.durabilite != null ? a.durabilite + '/5' : '–' })]),
+              el('div', {}, [el('dt', { texte: 'Propension' }), el('dd', { texte: a.propension != null ? a.propension + '/5' : '–' })]),
+              el('div', {}, [el('dt', { texte: 'Lien offre' }), el('dd', { texte: a.lienOffre != null ? a.lienOffre + '/5' : '–' })]),
+              el('div', {}, [el('dt', { texte: 'Monétisation' }), el('dd', { 'class': 'gros', texte: m != null ? m + '/15' : '–' })])
+            ]),
+            el('div', { 'class': 'actions' }, [
+              el('button', { type: 'button', 'class': 'btn prim', texte: lire(a.ref) ? 'Reprendre le post' : 'Rédiger un post LinkedIn', onclick: function () { aller('studio', a.ref); } }),
+              a.url ? el('a', { 'class': 'btn', href: a.url, target: '_blank', rel: 'noopener noreferrer', texte: 'Lire la source' }) : null,
+              el('button', { type: 'button', 'class': 'btn', texte: 'Ignorer', onclick: function () { etat.ignores.push(a.ref); rendre(); } })
+            ])
+          ]);
+        }) : [el('p', { 'class': 'vide', texte: 'Aucun sujet pour ce filtre.' })]),
+        etat.ignores.length ? el('div', { 'class': 'ligne' }, [etat.ignores.length + (etat.ignores.length > 1 ? ' sujets ignorés' : ' sujet ignoré'), el('button', { type: 'button', 'class': 'btn', texte: 'Tout réafficher', onclick: function () { etat.ignores = []; rendre(); } })]) : null
+      ];
+    }
+
+    function generer() {
+      var a = D.articles.filter(function (x) { return x.ref === etat.choisi; })[0];
+      if (!a || etat.enCours) return;
+      etat.enCours = true; etat.erreur = ''; rendre();
+      appel('linkedin', { id: D.id, article: a.ref, ton: etat.ton, langue: etat.langue })
+        .then(function (j) { if (!j || !j.post) throw new Error('vide'); ecrire(a.ref, String(j.post)); etat.checks = [false, false, false]; })
+        .catch(function () { etat.erreur = 'La génération a échoué. Réessaie dans un instant.'; })
+        .then(function () { etat.enCours = false; etat.copie = false; rendre(); });
+    }
+
+    function vueStudio() {
+      var a = D.articles.filter(function (x) { return x.ref === etat.choisi; })[0] || D.articles[0];
+      var texte = lire(a.ref);
+      var choix = el('select', { id: 'sujet', onchange: function (e) { aller('studio', e.target.value); } }, D.articles.map(function (x) { return el('option', { value: x.ref, selected: x.ref === a.ref ? 'selected' : false, texte: x.rang + '. ' + x.titre.slice(0, 70) }); }));
+      var ton = el('select', { id: 'ton', onchange: function (e) { etat.ton = e.target.value; } }, [['pedagogue', 'Pédagogue'], ['expert', 'Expert'], ['percutant', 'Percutant']].map(function (o) { return el('option', { value: o[0], selected: etat.ton === o[0] ? 'selected' : false, texte: o[1] }); }));
+      var langue = el('select', { id: 'langue', onchange: function (e) { etat.langue = e.target.value; } }, [['fr', 'Français'], ['en', 'English']].map(function (o) { return el('option', { value: o[0], selected: etat.langue === o[0] ? 'selected' : false, texte: o[1] }); }));
+      var compte = el('span', { 'class': 'compte' + (texte.length > 3000 ? ' trop' : ''), texte: texte.length + ' / 3 000 caractères' });
+      var apercuTexte = el('p', { texte: texte ? (texte.length > 280 ? texte.slice(0, 280) + '… voir plus' : texte) : 'Ton post apparaîtra ici.' });
+      var zone = el('textarea', { id: 'post', 'aria-label': 'Texte du post, modifiable', placeholder: 'Clique sur « Générer le post » : l’IA rédige un brouillon à partir de l’article, que tu modifies ensuite.', oninput: function (e) {
+        ecrire(a.ref, e.target.value); compte.textContent = e.target.value.length + ' / 3 000 caractères'; compte.className = 'compte' + (e.target.value.length > 3000 ? ' trop' : '');
+        apercuTexte.textContent = e.target.value.length > 280 ? e.target.value.slice(0, 280) + '… voir plus' : (e.target.value || 'Ton post apparaîtra ici.');
+      } });
+      zone.value = texte;
+      var labels = ['Chaque fait vient de la source', 'Le ton est le mien', 'Tous les [crochets] sont remplis'];
+      return [
+        el('div', {}, [el('button', { type: 'button', 'class': 'btn', texte: '← Ta file du jour', onclick: function () { aller('file'); } })]),
+        el('header', {}, [el('p', { 'class': 'sur', texte: 'Studio LinkedIn · l’IA propose, tu décides' }), el('h1', { texte: a.titre })]),
+        el('div', { 'class': 'ligne' }, [pastille(a.feu), a.axe ? el('span', { 'class': 'axe', texte: a.axe }) : null, a.source ? el('span', { texte: a.source }) : null, a.url ? el('a', { href: a.url, target: '_blank', rel: 'noopener noreferrer', texte: 'Lire la source' }) : null]),
+        el('div', { 'class': 'studio' }, [
+          el('section', { 'class': 'bloc gauche', 'aria-label': 'Brouillon' }, [
+            el('div', { 'class': 'reglages' }, [
+              el('label', { 'for': 'sujet' }, ['Sujet', choix]), el('label', { 'for': 'ton' }, ['Ton', ton]), el('label', { 'for': 'langue' }, ['Langue', langue]),
+              el('button', { type: 'button', 'class': 'btn prim', disabled: etat.enCours ? 'disabled' : false, onclick: generer }, etat.enCours ? [el('span', { 'class': 'spin', 'aria-hidden': 'true' }), 'Rédaction…'] : [texte ? 'Régénérer' : 'Générer le post'])
+            ]),
+            etat.erreur ? el('p', { 'class': 'etat erreur', role: 'alert', texte: etat.erreur }) : null,
+            zone,
+            el('div', { 'class': 'ligne', style: 'justify-content:space-between' }, [compte, el('div', { 'class': 'ligne' }, [
+              el('button', { type: 'button', 'class': 'btn', disabled: texte ? false : 'disabled', texte: etat.copie ? 'Copié' : 'Copier', onclick: function () { copier(lire(a.ref), zone); } }),
+              el('button', { type: 'button', 'class': 'btn', disabled: 'disabled', title: 'Bientôt : publication directe sur LinkedIn', texte: 'Publier sur LinkedIn · bientôt' })
+            ])])
+          ]),
+          el('aside', { 'class': 'droite', style: 'display:flex;flex-direction:column;gap:18px' }, [
+            el('section', { 'class': 'bloc', 'aria-labelledby': 'apercu-t' }, [el('h2', { id: 'apercu-t', texte: 'Aperçu' }), el('div', { 'class': 'apercu' }, [
+              el('div', { 'class': 'auteur' }, [el('div', { 'class': 'avatar', 'aria-hidden': 'true', texte: (D.prenom || '?').charAt(0).toUpperCase() }), el('div', {}, [el('b', { texte: D.prenom || 'Toi' }), el('span', { texte: 'Maintenant · Public' })])]),
+              apercuTexte])]),
+            el('section', { 'class': 'bloc', 'aria-labelledby': 'check-t' }, [el('h2', { id: 'check-t', texte: 'Avant de publier' })].concat(labels.map(function (l, i) {
+              var c = el('input', { type: 'checkbox', onchange: function (e) { etat.checks[i] = e.target.checked; } }); c.checked = etat.checks[i];
+              return el('label', { 'class': 'check' }, [c, el('span', { texte: l })]);
+            })).concat([el('p', { 'class': 'etat', texte: 'Les [crochets] sont à remplir par toi : l’IA ne les invente pas.' })]))
+          ])
+        ])
+      ];
+    }
+
+    function rendre() {
+      var v = document.getElementById('vue');
+      while (v.firstChild) v.removeChild(v.firstChild);
+      (etat.vue === 'studio' ? vueStudio() : vueFile()).forEach(function (n) { if (n) v.appendChild(n); });
+      Array.prototype.forEach.call(document.querySelectorAll('.menu button'), function (b) { if (b.getAttribute('data-vue') === etat.vue) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('.menu button'), function (b) { b.addEventListener('click', function () { aller(b.getAttribute('data-vue')); }); });
+    rendre();
+  }
+
+  if (/^[A-Za-z0-9]{4,32}$/.test(ID)) charger(0);
+  else ecran('Lien incomplet', 'Ce lien ne correspond à aucune inscription. Utilise le lien reçu après le formulaire.');
+})();
+</script>
+</body>
+</html>
